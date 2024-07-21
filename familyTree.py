@@ -1,4 +1,5 @@
 from datetime import date
+from collections import defaultdict
 
 class PersonNode:
     def __init__(self, name=None):
@@ -61,9 +62,10 @@ class FamilyTree:
         father = input("Enter their father's name: ")
         new_person._father.append(PersonNode(father))
 
+        # add person to tree
         self.family_tree.append(new_person)
 
-    def calculate_age(self, birth, death):
+    def calculate_age(self, birth:str, death:str) -> int:
         """
         Returns the current age in years (if alive) or age at death of person 
         """
@@ -100,6 +102,23 @@ class FamilyTree:
             return cnt
 
         return int((day_calc(death) - day_calc(birth)) // 365.25)
+    
+    def add_person_to_tree(self, person: PersonNode):
+        """
+        Adds PersonNode to tree, updates relationhips (e.g. parent-child)
+        """
+        tree = self.family_tree
+
+        if person not in tree:
+            tree.append(person)
+            
+        # connect parents
+        if person._mother in tree:
+            pass
+            
+
+
+
 
 
 if __name__ == "__main__":
