@@ -1,5 +1,6 @@
 from datetime import date
 from collections import defaultdict
+import json
 
 class PersonNode:
     def __init__(self, name=None):
@@ -43,6 +44,8 @@ class FamilyTree:
             death = str(date.today())
 
         new_person._death = death
+        if birth is None and death is None:
+            new_person._age = None
         if birth == '?' or death == '?':
             new_person._age = None
         else:
@@ -107,6 +110,7 @@ class FamilyTree:
         """
         Adds PersonNode to tree, updates relationhips (e.g. parent-child)
         """
+
         tree = self.family_tree
 
         if person not in tree:
@@ -116,8 +120,19 @@ class FamilyTree:
         if person._mother in tree:
             pass
             
+    def read_json_data(self, file_name:str):
+        """
+        reads saved family tree from JSON
+        """
+        with open(file_name, 'r') as infile:
+            tree_data = json.load(infile)
 
-
+    def write_json_data(self, file_name:str):
+        """
+        write family tree to JSON for storage
+        """
+        with open(file_name, 'w') as outfile:
+            json.dumps(self.family_tree, default=lambda o: o.__dict__)
 
 
 
@@ -125,5 +140,7 @@ if __name__ == "__main__":
     
     ft = FamilyTree()
     ft.create_person()
+    ft.write_json_data('tree.json')
     print(ft.family_tree[0]._name, ft.family_tree[0]._age)
+
 
