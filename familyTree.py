@@ -18,55 +18,84 @@ class PersonNode:
 
 class FamilyTree:
     def __init__(self):
-
-        self.family_tree = []
+        self.id = 0
+        self.family_tree = {}
 
     def create_person(self) -> None:
         """
         Create person to add to tree
         """
+        self.id += 1
+
         new_person = PersonNode()
         name = input("Enter the person's full name: ")
 
         while not name:
             print("Please enter a name")
             name = input("Enter the person's full name: ")
-            
         new_person._name = name
 
-        new_person._gender = input("Enter their gender: (m, f, nb): ")
+        gender = input("Enter their gender: (m, f, nb): ")
+        if len(gender) == 0: 
+            gender = None
+        new_person._gender = gender
+
+
         birth = input("Enter the person's date of birth (YYYY-MM-DD). Type '?' if unknown: ")
         new_person._birth = birth
        
         death = input("Enter the person's date of death (YYYY-MM-DD)(Type '?' if unknown or hit enter if still alive): ")
-
-        if death is None:
-            death = str(date.today())
-
         new_person._death = death
-        if birth is None and death is None:
-            new_person._age = None
-        if birth == '?' or death == '?':
-            new_person._age = None
-        else:
-            new_person._age = self.calculate_age(birth, death)
 
-        # validate birth/death 
-        new_person._birth_place = input("Enter where the person was born (City, Country): ")
-        new_person._death_place = input("Enter where the person died (City, Country): ")
+        if len(birth) == 0 and len(death) == 0:
+            new_person._birth = None
+            new_person._death = None
+            new_person._age = None
+            
+        else:
+            if len(death) == 0:
+                death = str(date.today())
+
+            elif birth == '?' or death == '?':
+                if birth == '?':
+                    new_person._birth = None
+                if death == '?':
+                    new_person._death = '?'
+                new_person._age = None
+            else:
+                new_person._age = self.calculate_age(birth, death)
+
+            # validate birth/death 
+        birth_place = input("Enter where the person was born (City, Country): ")
+        if len(birth_place) == 0:
+            birth_place = None
+        new_person._birth_place = birth_place
+
+        death_place = input("Enter where the person died (City, Country): ")
+        if len(death_place) == 0:
+            death_place = None
+        new_person._death_place = death_place
 
         spouse = input("Enter their spouse's name (Name or 'n/a'): ")
+        if len(spouse) == 0:
+            new_person._spouse = None
         if spouse.lower() != 'n/a':
+            new_person._spouse = None
+        else:
             new_person._spouse = spouse
 
         mother = input("Enter their mother's name: ")
-        new_person._mother.append(PersonNode(mother))
+        if len(mother) == 0:
+            mother = None
+        new_person._mother.append(mother)
         
         father = input("Enter their father's name: ")
-        new_person._father.append(PersonNode(father))
+        if len(father) == 0:
+            father = None
+        new_person._father.append(father)
 
         # add person to tree
-        self.family_tree.append(new_person)
+        self.family_tree[self.id] = new_person
 
     def calculate_age(self, birth:str, death:str) -> int:
         """
@@ -132,8 +161,8 @@ class FamilyTree:
         write family tree to JSON for storage
         """
         with open(file_name, 'w') as outfile:
-            json.dumps(self.family_tree, default=lambda o: o.__dict__)
-
+            write_tree = json.dumps(self.family_tree, indent=4, default=lambda o: o.__dict__,)
+            outfile.write(write_tree)
 
 
 if __name__ == "__main__":
@@ -141,6 +170,6 @@ if __name__ == "__main__":
     ft = FamilyTree()
     ft.create_person()
     ft.write_json_data('tree.json')
-    print(ft.family_tree[0]._name, ft.family_tree[0]._age)
+    print(ft.family_tree[1]._name, ft.family_tree[1]._age)
 
 
