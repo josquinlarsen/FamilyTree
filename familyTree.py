@@ -17,9 +17,30 @@ class PersonNode:
         self._spouse = None
 
 class FamilyTree:
-    def __init__(self):
+
+    def __init__(self, family_tree=None):
         self.id = 0
-        self.family_tree = {}
+        self.family_tree = family_tree
+
+    def print_tree(self): 
+        """
+        Prints family_tree
+        """
+        for keys in self.family_tree.keys():
+            for k in self.family_tree[keys].keys():
+                if self.family_tree[keys][k]:
+                    print(self.family_tree[keys][k])
+    
+    def validate_new_entry(self, name:str) -> bool:
+        """
+        validates that a name is not already in tree
+        """
+        tree = self.family_tree
+        for k in tree.keys():
+            if name in tree[k]["_name"]:
+                print(f"{name} is already in the Tree")
+                break
+        return True 
 
     def create_person(self) -> None:
         """
@@ -32,6 +53,12 @@ class FamilyTree:
 
         while not name:
             print("Please enter a name")
+            name = input("Enter the person's full name: ")
+        
+
+        check_name = self.validate_new_entry(name)
+
+        while not check_name:
             name = input("Enter the person's full name: ")
         new_person._name = name
 
@@ -47,6 +74,7 @@ class FamilyTree:
         death = input("Enter the person's date of death (YYYY-MM-DD)(Type '?' if unknown or hit enter if still alive): ")
         new_person._death = death
 
+        # validate birth/death 
         if len(birth) == 0 and len(death) == 0:
             new_person._birth = None
             new_person._death = None
@@ -55,6 +83,7 @@ class FamilyTree:
         else:
             if len(death) == 0:
                 death = str(date.today())
+                new_person._age = self.calculate_age(birth, death)
 
             elif birth == '?' or death == '?':
                 if birth == '?':
@@ -65,7 +94,7 @@ class FamilyTree:
             else:
                 new_person._age = self.calculate_age(birth, death)
 
-            # validate birth/death 
+            
         birth_place = input("Enter where the person was born (City, Country): ")
         if len(birth_place) == 0:
             birth_place = None
@@ -149,13 +178,6 @@ class FamilyTree:
         if person._mother in tree:
             pass
             
-    def read_json_data(self, file_name:str):
-        """
-        reads saved family tree from JSON
-        """
-        with open(file_name, 'r') as infile:
-            tree_data = json.load(infile)
-
     def write_json_data(self, file_name:str):
         """
         write family tree to JSON for storage
@@ -166,10 +188,11 @@ class FamilyTree:
 
 
 if __name__ == "__main__":
-    
-    ft = FamilyTree()
+    with open('tree.json', 'r') as infile:
+        tree_data = json.load(infile)
+    ft = FamilyTree(tree_data)
     ft.create_person()
     ft.write_json_data('tree.json')
-    print(ft.family_tree[1]._name, ft.family_tree[1]._age)
+    ft.print_tree()
 
 

@@ -1,0 +1,19 @@
+{
+    "1": {
+        "_name": "Wally",
+        "_birth": "2021-08-17",
+        "_death": "",
+        "_age": 2,
+        "_birth_place": "USA",
+        "_death_place": null,
+        "_gender": "m",
+        "_children": [],
+        "_mother": [
+            "Katie"
+        ],
+        "_father": [
+            "Calvin"
+        ],
+        "_spouse": null
+    }
+}
