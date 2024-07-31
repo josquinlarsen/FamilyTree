@@ -33,8 +33,9 @@ class FamilyTree:
         for keys in self.family_tree.keys():
             for k in self.family_tree[keys].keys():
                 if self.family_tree[keys][k]:
-                    print(self.family_tree[keys][k])
-    
+                    print((f"{self.family_tree[keys][k]}").strip("[").strip("]").strip("'"), end=" | ")
+            print('\t')
+            
     def validate_new_entry(self, name:str) -> bool:
         """
         validates that a name is not already in tree
@@ -43,7 +44,7 @@ class FamilyTree:
         for k in tree.keys():
             if name in tree[k]["_name"]:
                 print(f"{name} is already in the Tree")
-                break
+                return False
         return True 
 
     def create_person(self) -> None:
@@ -59,7 +60,6 @@ class FamilyTree:
             print("Please enter a name")
             name = input("Enter the person's full name: ")
         
-
         check_name = self.validate_new_entry(name)
 
         while not check_name:
@@ -70,7 +70,6 @@ class FamilyTree:
         if len(gender) == 0: 
             gender = None
         new_person._gender = gender
-
 
         birth = input("Enter the person's date of birth (YYYY-MM-DD). Type '?' if unknown: ")
         new_person._birth = birth
@@ -129,6 +128,11 @@ class FamilyTree:
 
         # add person to tree
         self.family_tree[self.id] = new_person
+
+        # write to json
+        self.write_json_data('tree.json')
+
+        return f"{name} successfully added to tree."
 
     def calculate_age(self, birth:str, death:str) -> int:
         """
@@ -196,23 +200,59 @@ class FamilyTree:
         """
         tree = self.family_tree
         for key in tree.keys():
+            # if parent not in tree[key]["_name"]:
+            #     print(f"{parent}'s node has not been created")
+            #     return
             if tree[key]["_name"] == parent:
                 if child in tree[key]["_children"]:
-                    return (f"{child} has already been added")
+                    print(f"{child} has already been added")
+                    return 
                 tree[key]["_children"].append(child)
 
         # update tree.json
         self.write_json_data('tree.json')
 
+        print(f"{child} added to {parent}'s node")
+        return 
+
+class Graph:
+    def __init__(self):
+        self.graph = defaultdict(list)
+
+    def add_edges(self, family_tree):
+        """
+        adds weighted edges to graph:
+        3 = child, 2 = mother, 1 = father
+        """
+
+        for entry in family_tree:
+            name = family_tree[entry]["_name"]
+                
+            mother = family_tree[entry]["_mother"][0]
+            father = family_tree[entry]["_father"][0]
+            if mother and father:
+                self.graph[name].append((mother, 2))
+                self.graph[mother].append((name, 3))
+                self.graph[name].append((father, 1))
+                self.graph[father].append((name, 3))
+
+    def print_graph(self):
+        """
+        prints graph
+        """
+
+        print(self.graph)
 
 if __name__ == "__main__":
     with open('tree.json', 'r') as infile:
         tree_data = json.load(infile)
     ft = FamilyTree(tree_data)
+    g = Graph()
     # ft.create_person()
-    ft.write_json_data('tree.json')
+    # ft.add_child('Mason', 'Coda')
     # ft.print_tree()
-    # ft.add_child('Katie', 'Wally')
-    ft.print_tree()
+    g.add_edges(ft.family_tree)
+    g.print_graph()
+
 
 
