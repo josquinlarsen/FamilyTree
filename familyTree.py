@@ -19,9 +19,13 @@ class PersonNode:
 class FamilyTree:
 
     def __init__(self, family_tree=None):
-        self.id = 0
+        
         self.family_tree = family_tree
-
+        if len(self.family_tree) == 0:
+            self.id = 0
+        else: 
+            self.id = len(self.family_tree)
+            
     def print_tree(self): 
         """
         Prints family_tree
@@ -186,13 +190,29 @@ class FamilyTree:
             write_tree = json.dumps(self.family_tree, indent=4, default=lambda o: o.__dict__,)
             outfile.write(write_tree)
 
+    def add_child(self, parent:str, child:str):
+        """
+        Adds a parent's offspring to their node
+        """
+        tree = self.family_tree
+        for key in tree.keys():
+            if tree[key]["_name"] == parent:
+                if child in tree[key]["_children"]:
+                    return (f"{child} has already been added")
+                tree[key]["_children"].append(child)
+
+        # update tree.json
+        self.write_json_data('tree.json')
+
 
 if __name__ == "__main__":
     with open('tree.json', 'r') as infile:
         tree_data = json.load(infile)
     ft = FamilyTree(tree_data)
-    ft.create_person()
+    # ft.create_person()
     ft.write_json_data('tree.json')
+    # ft.print_tree()
+    # ft.add_child('Katie', 'Wally')
     ft.print_tree()
 
 

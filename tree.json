@@ -15,5 +15,24 @@
             "Calvin"
         ],
         "_spouse": null
+    },
+    "2": {
+        "_name": "Katie",
+        "_birth": "2018-01-01",
+        "_death": "",
+        "_age": 6,
+        "_birth_place": null,
+        "_death_place": null,
+        "_gender": "f",
+        "_children": [
+            "Wally"
+        ],
+        "_mother": [
+            "Evie"
+        ],
+        "_father": [
+            "Oscar"
+        ],
+        "_spouse": null
     }
 }
