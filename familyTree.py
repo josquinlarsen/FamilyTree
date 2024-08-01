@@ -222,21 +222,35 @@ class Graph:
     def __init__(self):
         self.graph = defaultdict(list)
 
-    def get_names_and_ids(self, family_tree) -> list[tuple]:
+    def get_names(self, family_tree) -> list[str]:
         """
         Returns a list of names and their id numbers
         from FamilyTree
         """
+        names = []
+
+        for entry in family_tree:
+            name = family_tree[entry]["_name"]
+            names.append(name)
+
+
+        return names
+    
+    def get_names_and_ids(self, family_tree):
+        """
+        Returns a tuple of two arrays containing ids and names
+        """
+
         names_ids = []
 
         for entry in family_tree:
-            id_num = entry
+            id_num = family_tree[entry]
             name = family_tree[entry]["_name"]
             names_ids.append((id_num, name))
 
-        arrays = self._split_names(names_ids)
+        split_array = self._split_names(names_ids)
 
-        return arrays
+        return split_array
     
     def _split_names(self, names_ids:list) -> list:
         """
@@ -250,7 +264,6 @@ class Graph:
             names.append(name)
 
         return ids, names
-
 
     def add_edges(self, family_tree):
         """
@@ -278,22 +291,21 @@ class Graph:
 
 class GraphVisualizer:
 
-
     def __init__(self):
         self.net = Network()
 
-    def add_nodes(self, arrays):
+    def add_nodes(self, names):
         """
         add nodes to graph visualizer
         """
-        ids, names = arrays
-        self.net.add_nodes(ids, label=names)
+        for i, name in enumerate(names):
+            self.net.add_node(i + 1, label=name)
 
     def display_graph(self):
         """
         Displays graph
         """
-        self.net.show("wally_tree.html")
+        self.net.show("wally_tree.html", notebook=False)
 
 if __name__ == "__main__":
     with open('tree.json', 'r') as infile:
@@ -301,15 +313,15 @@ if __name__ == "__main__":
     ft = FamilyTree(tree_data)
     g = Graph()
     gv = GraphVisualizer()
-    net = Network(height="750px", width="100%")
+    net = Network()
     # ft.create_person()
     # ft.add_child('Mason', 'Coda')
     # ft.print_tree()
     g.add_edges(ft.family_tree)
-    arrays = (g.get_names_and_ids(ft.family_tree))
-    ids, names = arrays
-    net.add_nodes(ids, label=names)
-    net.show("wally_tree.html")
+    names = (g.get_names(ft.family_tree))
+    gv.add_nodes(names)
+    gv.display_graph()
+    
 
 
 
