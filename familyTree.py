@@ -1,5 +1,8 @@
 from datetime import date
 from collections import defaultdict
+from pyvis.network import Network
+
+import networkx as nx
 import json
 
 class PersonNode:
@@ -219,6 +222,36 @@ class Graph:
     def __init__(self):
         self.graph = defaultdict(list)
 
+    def get_names_and_ids(self, family_tree) -> list[tuple]:
+        """
+        Returns a list of names and their id numbers
+        from FamilyTree
+        """
+        names_ids = []
+
+        for entry in family_tree:
+            id_num = entry
+            name = family_tree[entry]["_name"]
+            names_ids.append((id_num, name))
+
+        arrays = self._split_names(names_ids)
+
+        return arrays
+    
+    def _split_names(self, names_ids:list) -> list:
+        """
+        Returns array of id numbers in order
+        """
+        ids = []
+        names = []
+
+        for id, name in names_ids:
+            ids.append(id)
+            names.append(name)
+
+        return ids, names
+
+
     def add_edges(self, family_tree):
         """
         adds weighted edges to graph:
@@ -243,16 +276,40 @@ class Graph:
 
         print(self.graph)
 
+class GraphVisualizer:
+
+
+    def __init__(self):
+        self.net = Network()
+
+    def add_nodes(self, arrays):
+        """
+        add nodes to graph visualizer
+        """
+        ids, names = arrays
+        self.net.add_nodes(ids, label=names)
+
+    def display_graph(self):
+        """
+        Displays graph
+        """
+        self.net.show("wally_tree.html")
+
 if __name__ == "__main__":
     with open('tree.json', 'r') as infile:
         tree_data = json.load(infile)
     ft = FamilyTree(tree_data)
     g = Graph()
+    gv = GraphVisualizer()
+    net = Network(height="750px", width="100%")
     # ft.create_person()
     # ft.add_child('Mason', 'Coda')
     # ft.print_tree()
     g.add_edges(ft.family_tree)
-    g.print_graph()
+    arrays = (g.get_names_and_ids(ft.family_tree))
+    ids, names = arrays
+    net.add_nodes(ids, label=names)
+    net.show("wally_tree.html")
 
 
 
