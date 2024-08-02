@@ -233,7 +233,6 @@ class Graph:
             name = family_tree[entry]["_name"]
             names.append(name)
 
-
         return names
     
     def get_names_and_ids(self, family_tree):
@@ -244,9 +243,8 @@ class Graph:
         names_ids = []
 
         for entry in family_tree:
-            id_num = family_tree[entry]
             name = family_tree[entry]["_name"]
-            names_ids.append((id_num, name))
+            names_ids.append((entry, name))
 
         split_array = self._split_names(names_ids)
 
@@ -265,7 +263,7 @@ class Graph:
 
         return ids, names
 
-    def add_edges(self, family_tree):
+    def add_edges_name(self, family_tree):
         """
         adds weighted edges to graph:
         3 = child, 2 = mother, 1 = father
@@ -281,6 +279,37 @@ class Graph:
                 self.graph[mother].append((name, 3))
                 self.graph[name].append((father, 1))
                 self.graph[father].append((name, 3))
+
+    def add_edges_id(self, family_tree):
+        """
+        Adds edges to graph as id number
+        """
+        name_id_dico = self.get_edges_id(family_tree)
+
+        for entry in family_tree:
+            id = int(entry)
+            name = family_tree[entry]["_name"]
+            mother = family_tree[entry]["_mother"][0]
+            father = family_tree[entry]["_father"][0]
+            if mother and father:
+                self.graph[id].append(name_id_dico[mother])
+                self.graph[name_id_dico[mother]].append(name_id_dico[name])
+                self.graph[id].append(name_id_dico[father])
+                self.graph[name_id_dico[father]].append(name_id_dico[name])
+
+    def get_edges_id(self, family_tree):
+        """
+        Returns edges as id numbers
+        """
+
+        arr = (self.get_names_and_ids(family_tree))
+
+        name_id_dico = {}
+
+        for idx, name in enumerate(arr[1]):
+            name_id_dico[name] = idx + 1
+        
+        return name_id_dico
 
     def print_graph(self):
         """
@@ -301,6 +330,15 @@ class GraphVisualizer:
         for i, name in enumerate(names):
             self.net.add_node(i + 1, label=name)
 
+    def add_edges(self, graph):
+        """
+        adds edges to graph visualizer
+        """
+
+        for node in graph:
+            for edge in graph[node]:
+                self.net.add_edge(node, edge)
+
     def display_graph(self):
         """
         Displays graph
@@ -315,11 +353,14 @@ if __name__ == "__main__":
     gv = GraphVisualizer()
     net = Network()
     # ft.create_person()
-    # ft.add_child('Mason', 'Coda')
+    # ft.add_child('Donnie', 'Jamie')
     # ft.print_tree()
-    g.add_edges(ft.family_tree)
+    # g.add_edges_name(ft.family_tree)
     names = (g.get_names(ft.family_tree))
+    g.add_edges_id(ft.family_tree)
+    # print(g.print_graph())
     gv.add_nodes(names)
+    gv.add_edges(g.graph)
     gv.display_graph()
     
 
