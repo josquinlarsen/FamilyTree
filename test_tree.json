@@ -1,0 +1,56 @@
+{
+    "1": {
+        "_name": "Wally",
+        "_birth": "2021-08-17",
+        "_death": "",
+        "_age": 2,
+        "_birth_place": "USA",
+        "_death_place": null,
+        "_gender": "m",
+        "_children": [],
+        "_mother": [
+            "Katie"
+        ],
+        "_father": [
+            "Calvin"
+        ],
+        "_spouse": null
+    },
+    "2": {
+        "_name": "Katie",
+        "_birth": "2018-01-01",
+        "_death": "",
+        "_age": 6,
+        "_birth_place": null,
+        "_death_place": null,
+        "_gender": "f",
+        "_children": [
+        ],
+        "_mother": [
+            "Evie"
+        ],
+        "_father": [
+            "Oscar"
+        ],
+        "_spouse": null
+    },   
+    "3": {
+        "_name": "Calvin",
+        "_birth": "2019-01-01",
+        "_death": "",
+        "_age": 5,
+        "_birth_place": null,
+        "_death_place": null,
+        "_gender": "m",
+        "_children": [
+            "Wally"
+        ],
+        "_mother": [
+            null
+        ],
+        "_father": [
+            null
+        ],
+        "_spouse": null
+    }
+}
