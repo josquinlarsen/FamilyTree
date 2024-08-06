@@ -25,8 +25,12 @@ class FamilyTree:
 
     def __init__(self, family_tree=None):
 
-        self.family_tree = family_tree
-        if len(self.family_tree) == 0:
+        with open("tree.json", "r") as infile:
+            tree_data = json.load(infile)
+
+        self.family_tree = tree_data
+        # self.family_tree = family_tree
+        if self.family_tree is None or len(self.family_tree) == 0:
             self.id = 0
         else:
             self.id = len(self.family_tree)
@@ -347,9 +351,10 @@ class GraphVisualizer:
 
 
 if __name__ == "__main__":
-    with open("tree.json", "r") as infile:
-        tree_data = json.load(infile)
-    ft = FamilyTree(tree_data)
+    # with open("tree.json", "r") as infile:
+    #     tree_data = json.load(infile)
+    # ft = FamilyTree(tree_data)
+    ft = FamilyTree()
     g = Graph()
     gv = GraphVisualizer()
     net = Network()
