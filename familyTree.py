@@ -286,6 +286,7 @@ class Graph:
     def create_adj_dico_id(self, family_tree):
         """
         Adds edges to graph as id number
+        Weights:parent = 1, child = 2
         """
         name_id_dico = self.get_edges_id(family_tree)
 
@@ -295,10 +296,10 @@ class Graph:
             mother = family_tree[entry]["_mother"][0]
             father = family_tree[entry]["_father"][0]
             if mother and father:
-                self.graph[id].append(name_id_dico[mother])
-                self.graph[name_id_dico[mother]].append(name_id_dico[name])
-                self.graph[id].append(name_id_dico[father])
-                self.graph[name_id_dico[father]].append(name_id_dico[name])
+                self.graph[id].append((name_id_dico[mother], 1))
+                self.graph[name_id_dico[mother]].append((name_id_dico[name], 2))
+                self.graph[id].append((name_id_dico[father], 1))
+                self.graph[name_id_dico[father]].append((name_id_dico[name], 2))
 
     def get_edges_id(self, family_tree):
         """
@@ -340,8 +341,8 @@ class GraphVisualizer:
         """
 
         for node in graph:
-            for edge in graph[node]:
-                self.net.add_edge(node, edge)
+            for edge, w in graph[node]:
+                self.net.add_edge(node, edge, weight=w)
 
     def display_graph(self):
         """
