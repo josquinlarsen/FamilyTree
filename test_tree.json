@@ -24,8 +24,7 @@
         "_birth_place": null,
         "_death_place": null,
         "_gender": "f",
-        "_children": [
-        ],
+        "_children": [],
         "_mother": [
             "Evie"
         ],
@@ -33,7 +32,7 @@
             "Oscar"
         ],
         "_spouse": null
-    },   
+    },
     "3": {
         "_name": "Calvin",
         "_birth": "2019-01-01",
@@ -45,12 +44,8 @@
         "_children": [
             "Wally"
         ],
-        "_mother": [
-            null
-        ],
-        "_father": [
-            null
-        ],
+        "_mother": [],
+        "_father": [],
         "_spouse": null
     }
 }

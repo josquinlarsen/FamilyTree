@@ -25,7 +25,8 @@
         "_death_place": null,
         "_gender": "f",
         "_children": [
-            "Wally"
+            "Wally",
+            "Rocket"
         ],
         "_mother": [
             "Evie"
@@ -36,81 +37,6 @@
         "_spouse": null
     },
     "3": {
-        "_name": "Evie",
-        "_birth": "2011-01-01",
-        "_death": "",
-        "_age": 13,
-        "_birth_place": null,
-        "_death_place": null,
-        "_gender": "f",
-        "_children": [
-            "Katie",
-            "Etta Grace"
-        ],
-        "_mother": [
-            null
-        ],
-        "_father": [
-            null
-        ],
-        "_spouse": null
-    },
-    "4": {
-        "_name": "Etta Grace",
-        "_birth": "2014-01-01",
-        "_death": "",
-        "_age": 10,
-        "_birth_place": null,
-        "_death_place": null,
-        "_gender": "f",
-        "_children": [
-            "Jamie"
-        ],
-        "_mother": [
-            "Evie"
-        ],
-        "_father": [
-            "River"
-        ],
-        "_spouse": null
-    },
-    "5": {
-        "_name": "Jamie",
-        "_birth": "2019-01-01",
-        "_death": "",
-        "_age": 5,
-        "_birth_place": null,
-        "_death_place": null,
-        "_gender": "f",
-        "_children": [
-            "Coda"
-        ],
-        "_mother": [
-            "Etta Grace"
-        ],
-        "_father": [
-            "Donnie"
-        ],
-        "_spouse": null
-    },
-    "6": {
-        "_name": "Coda",
-        "_birth": "2023-06-28",
-        "_death": "",
-        "_age": 1,
-        "_birth_place": "St Louis, USA",
-        "_death_place": null,
-        "_gender": "f",
-        "_children": [],
-        "_mother": [
-            "Jamie"
-        ],
-        "_father": [
-            "Mason"
-        ],
-        "_spouse": null
-    },
-    "7": {
         "_name": "Calvin",
         "_birth": "2019-01-01",
         "_death": "",
@@ -121,88 +47,8 @@
         "_children": [
             "Wally"
         ],
-        "_mother": [
-            null
-        ],
-        "_father": [
-            null
-        ],
-        "_spouse": null
-    },
-    "8": {
-        "_name": "Oscar",
-        "_birth": "2014-01-01",
-        "_death": "",
-        "_age": 10,
-        "_birth_place": null,
-        "_death_place": null,
-        "_gender": "m",
-        "_children": [
-            "Katie"
-        ],
-        "_mother": [
-            null
-        ],
-        "_father": [
-            null
-        ],
-        "_spouse": null
-    },
-    "9": {
-        "_name": "Mason",
-        "_birth": "2013-01-01",
-        "_death": "",
-        "_age": 11,
-        "_birth_place": null,
-        "_death_place": null,
-        "_gender": "m",
-        "_children": [
-            "Coda"
-        ],
-        "_mother": [
-            null
-        ],
-        "_father": [
-            null
-        ],
-        "_spouse": null
-    },
-    "10": {
-        "_name": "River",
-        "_birth": "2012-01-01",
-        "_death": "",
-        "_age": 12,
-        "_birth_place": null,
-        "_death_place": null,
-        "_gender": "m",
-        "_children": [
-            "Etta Grace"
-        ],
-        "_mother": [
-            null
-        ],
-        "_father": [
-            null
-        ],
-        "_spouse": null
-    },
-    "11": {
-        "_name": "Donnie",
-        "_birth": "2017-01-01",
-        "_death": "",
-        "_age": 7,
-        "_birth_place": null,
-        "_death_place": null,
-        "_gender": "m",
-        "_children": [
-            "Jamie"
-        ],
-        "_mother": [
-            null
-        ],
-        "_father": [
-            null
-        ],
+        "_mother": [],
+        "_father": [],
         "_spouse": null
     }
 }

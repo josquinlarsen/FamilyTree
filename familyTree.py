@@ -25,11 +25,8 @@ class FamilyTree:
 
     def __init__(self, family_tree=None):
 
-        with open("tree.json", "r") as infile:
-            tree_data = json.load(infile)
-
-        self.family_tree = tree_data
-        # self.family_tree = family_tree
+       
+        self.family_tree = family_tree
         if self.family_tree is None or len(self.family_tree) == 0:
             self.id = 0
         else:
@@ -201,6 +198,7 @@ class FamilyTree:
                 default=lambda o: o.__dict__,
             )
             outfile.write(write_tree)
+            return f"{file_name} has been successfully updated."
 
     def add_child(self, parent: str, child: str):
         """
@@ -227,8 +225,7 @@ class Graph:
 
     def get_names(self, family_tree) -> list[str]:
         """
-        Returns a list of names and their id numbers
-        from FamilyTree
+        Returns a list of names from FamilyTree
         """
         names = []
 
@@ -352,9 +349,9 @@ class GraphVisualizer:
 
 
 if __name__ == "__main__":
-    # with open("tree.json", "r") as infile:
-    #     tree_data = json.load(infile)
-    # ft = FamilyTree(tree_data)
+    with open("tree.json", "r") as infile:
+        tree_data = json.load(infile)
+    ft = FamilyTree(tree_data)
     ft = FamilyTree()
     g = Graph()
     gv = GraphVisualizer()
