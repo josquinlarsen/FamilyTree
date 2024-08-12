@@ -25,7 +25,6 @@ class FamilyTree:
 
     def __init__(self, family_tree=None):
 
-       
         self.family_tree = family_tree
         if self.family_tree is None or len(self.family_tree) == 0:
             self.id = 0
@@ -76,6 +75,8 @@ class FamilyTree:
 
         while not check_name:
             name = input("Enter the person's full name: ")
+            check_name = self.validate_new_entry(name)
+            
         new_person._name = name
 
         gender = input("Enter their gender: (m, f, nb): ")
@@ -147,7 +148,8 @@ class FamilyTree:
         # write to json
         self.write_json_data("tree.json")
 
-        return f"{name} successfully added to tree."
+        print(f"{name} successfully added to tree.")
+        return
 
     def calculate_age(self, birth: str, death: str) -> int:
         """
@@ -352,17 +354,16 @@ if __name__ == "__main__":
     with open("tree.json", "r") as infile:
         tree_data = json.load(infile)
     ft = FamilyTree(tree_data)
-    ft = FamilyTree()
     g = Graph()
     gv = GraphVisualizer()
     net = Network()
-    # ft.create_person()
+    ft.create_person()
     # ft.add_child('Donnie', 'Jamie')
     # ft.print_tree()
     # g.create_adj_dico_name(ft.family_tree)
-    names = g.get_names(ft.family_tree)
-    g.create_adj_dico_id(ft.family_tree)
+    # names = g.get_names(ft.family_tree)
+    # g.create_adj_dico_id(ft.family_tree)
     # print(g.print_graph())
-    gv.add_nodes(names)
-    gv.add_edges(g.graph)
-    gv.display_graph()
+    # gv.add_nodes(names)
+    # gv.add_edges(g.graph)
+    # gv.display_graph()
