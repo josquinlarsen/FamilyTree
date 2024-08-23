@@ -76,7 +76,7 @@ class FamilyTree:
         while not check_name:
             name = input("Enter the person's full name: ")
             check_name = self.validate_new_entry(name)
-            
+
         new_person._name = name
 
         gender = input("Enter their gender: (m, f, nb): ")
@@ -357,13 +357,14 @@ if __name__ == "__main__":
     g = Graph()
     gv = GraphVisualizer()
     net = Network()
-    ft.create_person()
+    # ft.create_person()
+
     # ft.add_child('Donnie', 'Jamie')
     # ft.print_tree()
     # g.create_adj_dico_name(ft.family_tree)
-    # names = g.get_names(ft.family_tree)
-    # g.create_adj_dico_id(ft.family_tree)
-    # print(g.print_graph())
-    # gv.add_nodes(names)
-    # gv.add_edges(g.graph)
-    # gv.display_graph()
+    names = g.get_names(ft.family_tree)
+    g.create_adj_dico_id(ft.family_tree)
+    print(g.print_graph())
+    gv.add_nodes(names)
+    gv.add_edges(g.graph)
+    gv.display_graph()
