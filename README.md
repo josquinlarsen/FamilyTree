@@ -14,7 +14,7 @@ Includes a testing module.
 ## GIF Examples
 CLI Interface
 <p>
-  <image src='gif_ex/ftcli.gif' width=350><br>
+  <image src='gif_ex/ftcli.gif' width=500><br>
 </p>
 Graph
 <p>
