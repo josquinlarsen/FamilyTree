@@ -12,3 +12,11 @@ Includes a testing module.
 - Pyvis
 
 ## GIF Examples
+CLI Interface
+<p>
+  <image src='gif_ex/ftcli.gif' width=350><br>
+</p>
+Graph
+<p>
+  <image src='gif_ex/ftgraph.gif' width=350><br>
+</p>
